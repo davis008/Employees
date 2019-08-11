@@ -18,3 +18,4 @@ Several tests are done to make sure that:
 
 XUnit was used for testing in this project.i used it instead of NUnit because it is modern as perfoms better than the latter.
 
+![image](https://user-images.githubusercontent.com/13285377/62833490-61716780-bc48-11e9-9816-6a53083f15fd.png)
