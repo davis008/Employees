@@ -13,14 +13,14 @@ namespace Employee.Tests
 
         public void Should_CheckIfSalaryIsInteger()
         {
-            
             //Arrange
-            string valid= "Employee4,Employee2,500";
-            //Act
-            string actual= "Employee4,Employee2,-500";
-           
+            
+            string  expected= "Employee4,Employee2,500";
 
-            string[] _csvInput = {valid, actual };
+            //Act
+            string actual = "Employee4,Employee2,-800";
+
+            string[] _csvInput = { expected,actual};
 
             //Assert
             Assert.Throws<ArgumentOutOfRangeException>(() =>new  Employees(_csvInput));
@@ -28,36 +28,46 @@ namespace Employee.Tests
         }
        public void Should_ValidateNoOfEmployeesAssignedToAManager()
         {
-      
-            string employee1 = "Employee2,,200";
-            string employee2 = "Employee1,,500";
-            string[] _csvInput = { employee1, employee2 };
-            Assert.Throws<ArgumentException>(() => new Employees(_csvInput));
+            //Arrange
+            string employee5 = "Employee5,Employee1,500";
 
+            string employee2 = "Employee2,Employee1,500";
+            //Act
+            string[] _csvInput = { employee5, employee2 };
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => new Employees(_csvInput));
+   
+        }
         public void Should_ValidateNoManagerIsNotAnEmloyee()
         {
-            string employee1 = "Employee2,Employee3,200";
-            string employee2 = "Employee1,Employee4,500";
-            string[] _csvInput = { employee1, employee2 };
+
+            string employee1 = "Employee1,,1000";
+
+            string actual = ",,1000";
+
+            string[] _csvInput = { employee1, actual };
             Assert.Throws<ArgumentException>(() => new Employees(_csvInput));
         }
         public void Should_ValidateCeoNumber()
         {
-            string employee1 = "Employee2,Employee3,200";
+            string employee1 = "Employee1,,1000";
 
-            string employee2 = "Employee2,Employee4,500";
+            string employee5 = "Employee5,Employee1,500";
 
-            string[] _csvInput = { employee1, employee2 };
+            string employee3 = "Employee3,Emloyee1,800";
+
+            string[] _csvInput = { employee1, employee5,employee3 };
 
             Assert.Throws<ArgumentException>(() => new Employees(_csvInput));
         }
         public void Should_ValidateCircularReference()
         {
-            string employee1 = "Employee2,Employee3,200";
+            string employee2 = "Employee2,Employee1,500";
 
-            string employee2 = "Employee3,Employee2,500";
+            string employee5 = "Employee5,Employee1,500";
 
-            string[] _csvInput = { employee1, employee2 };
+            string[] _csvInput = { employee2, employee5 };
             Assert.Throws<ArgumentException>(() => new Employees(_csvInput));
 
         }
@@ -74,9 +84,8 @@ namespace Employee.Tests
 
             //Act
             long ExpectedSalary = 1800;
-            long ActualSalary;
-            Employees employees = new Employees(_csvInput);
-            ActualSalary = employees.GetSalaryBudget("Employee2");
+            Employees e = new Employees(_csvInput);
+            long ActualSalary = e.GetSalaryBudget("Employee2");
 
             //Assert
             Assert.Equal(ExpectedSalary, ActualSalary);
